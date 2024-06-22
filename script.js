@@ -4,6 +4,8 @@ let ctx = canvas.getContext("2d")
 let width = canvas.width;
 let height = canvas.height;
 
+const MAX_COMPUTER_SPEED = 2;
+
 const BALL_SIZE = 5;
 let ballPosition;
 
@@ -11,10 +13,12 @@ let xSpeed;
 let ySpeed;
 
 function initBall(){
-    ballPosition = {x:20, y:30};
+    ballPosition = { x: 20, y: 30 };
     xSpeed = 4;
     ySpeed = 2;
+
 }
+
 
 const PADDLE_WIDTH = 5;
 const PADDLE_HEIGHT = 50;
@@ -59,13 +63,33 @@ function draw(){
     ctx.fillText(leftScore.toString(), 50,50);
     ctx.textAlign = "right";
     ctx.fillText(rightScore.toString(), width - 50, 50);
+};
+
+
+
+function followBall(){
+    let ball = {
+        top: ballPosition.y,
+        bottom: ballPosition.y + BALL_SIZE
+    };
+    let leftPaddle = {
+        top: leftPaddleTop,
+        bottom: leftPaddleTop + PADDLE_HEIGHT,
+    }
+    if(ball.top < leftPaddle.top){
+        leftPaddleTop -= MAX_COMPUTER_SPEED;
+    } else if(ball.bottom > leftPaddle.bottom){
+        leftPaddleTop += MAX_COMPUTER_SPEED;
+    }
 }
+
 
 
 
 function update(){
     ballPosition.x += xSpeed;
     ballPosition.y += ySpeed;
+    followBall();
 }
 
 function checkPaddleCollision(ball,paddle){
@@ -118,10 +142,11 @@ function checkCollision(){
     }
     if (checkPaddleCollision(ball, rightPaddle)){
         // Right paddle collision happened
-        xSpeed = -Math.abs(xSpeed);
+      
         let distanceFromTop = ball.top - rightPaddle.top;
         let distanceFromBottom = rightPaddle.bottom - ball.bottom;
         adjustAngle(distanceFromTop, distanceFromBottom);
+        xSpeed = -Math.abs(xSpeed);
     }
 
     if (ball.left < 0){
@@ -150,5 +175,5 @@ function gameLoop(){
     // Call this function again after a timeout
     setTimeout(gameLoop, 30);
 }
-initBall();
+initBall()
 gameLoop();
