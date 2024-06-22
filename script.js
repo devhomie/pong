@@ -123,6 +123,16 @@ function checkCollision(){
         let distanceFromBottom = rightPaddle.bottom - ball.bottom;
         adjustAngle(distanceFromTop, distanceFromBottom);
     }
+
+    if (ball.left < 0){
+        rightScore++;
+        initBall();
+    }
+    if(ball.right > width){
+        leftScore++;
+        initBall();
+    }
+
     if (ball.left < 0 || ball.right > width) {
       xSpeed = -xSpeed;
     }
@@ -140,5 +150,5 @@ function gameLoop(){
     // Call this function again after a timeout
     setTimeout(gameLoop, 30);
 }
-
-gameLoop()
+initBall();
+gameLoop();
