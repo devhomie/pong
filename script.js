@@ -5,10 +5,16 @@ let width = canvas.width;
 let height = canvas.height;
 
 const BALL_SIZE = 5;
-let ballPosition = {x: 20, y: 30};
+let ballPosition;
 
-let xSpeed = 6;
-let ySpeed = 2;
+let xSpeed;
+let ySpeed;
+
+function initBall(){
+    ballPosition = {x:20, y:30};
+    xSpeed = 4;
+    ySpeed = 2;
+}
 
 const PADDLE_WIDTH = 5;
 const PADDLE_HEIGHT = 50;
