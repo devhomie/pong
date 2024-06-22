@@ -7,15 +7,39 @@ let height = canvas.height;
 const BALL_SIZE = 5;
 let ballPosition = {x: 20, y: 30};
 
-let xSpeed = 4;
+let xSpeed = 6;
 let ySpeed = 2;
 
+const PADDLE_WIDTH = 5;
+const PADDLE_HEIGHT = 20;
+const PADDLE_OFFSET = 10;
+
+let leftPaddleTop = 10;
+let rightPaddleTop = 30;
+
 function draw(){
+    // Fill the canvas with black
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,width,height);
 
+    // Everything else will be white
     ctx.fillStyle = "white";
+    // Draw the ball
     ctx.fillRect(ballPosition.x,ballPosition.y, BALL_SIZE,BALL_SIZE)
+
+    // Draw the paddles
+    ctx.fillRect(
+        PADDLE_OFFSET,
+        leftPaddleTop,
+        PADDLE_WIDTH,
+        PADDLE_HEIGHT,
+    );
+    ctx.fillRect(
+        width - PADDLE_WIDTH - PADDLE_OFFSET,
+        rightPaddleTop,
+        PADDLE_WIDTH,
+        PADDLE_HEIGHT,
+    )
 }
 
 function update(){
