@@ -22,9 +22,27 @@ function update(){
     ballPosition.x += xSpeed;
     ballPosition.y += ySpeed;
 }
+
+function checkCollision(){
+    let ball = {
+        left: ballPosition.x,
+        right: ballPosition.x + BALL_SIZE,
+        top: ballPosition.y,
+        bottom: ballPosition.y + BALL_SIZE,
+    }
+    if (ball.left<0 || ball.right>width){
+        xSpeed = -xSpeed;
+    }
+    if(ball.top < 0 || ball.bottom>height){
+        ySpeed = -ySpeed
+    }
+
+}
+
 function gameLoop(){
     draw();
     update();
+    checkCollision();
 
     // Call this function again after a timeout
     setTimeout(gameLoop, 30);
