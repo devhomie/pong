@@ -21,7 +21,7 @@ function initBall(){
 
 
 const PADDLE_WIDTH = 5;
-const PADDLE_HEIGHT = 50;
+const PADDLE_HEIGHT = 20;
 const PADDLE_OFFSET = 10;
 
 let leftPaddleTop = 10;
@@ -29,6 +29,7 @@ let rightPaddleTop = 30;
 
 let leftScore = 0;
 let rightScore = 0;
+let gameOver = false;
 
 document.addEventListener("mousemove",e=>{
     rightPaddleTop = e.y - canvas.offsetTop;
@@ -157,23 +158,31 @@ function checkCollision(){
         leftScore++;
         initBall();
     }
-
-    if (ball.left < 0 || ball.right > width) {
-      xSpeed = -xSpeed;
+    if(leftScore > 9 || rightScore >9){
+        gameOver = true;
     }
+
+   
     if(ball.top < 0 || ball.bottom>height){
         ySpeed = -ySpeed
     }
 
 }
 
+function drawGameOver(){
+    ctx.fillStyle = "white";
+    ctx.font = "30px monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("GAME OVER", width / 2, height / 2)
+}
+
 function gameLoop(){
     draw();
     update();
     checkCollision();
-
+    if(gameOver){draw(); drawGameOver();}else{setTimeout(gameLoop, 30)}
     // Call this function again after a timeout
-    setTimeout(gameLoop, 30);
+   
 }
 initBall()
 gameLoop();
