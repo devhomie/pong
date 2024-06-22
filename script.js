@@ -58,6 +58,18 @@ function checkCollision(){
         top: ballPosition.y,
         bottom: ballPosition.y + BALL_SIZE,
     }
+    let leftPaddle = {
+        left: PADDLE_OFFSET,
+        right: PADDLE_OFFSET + PADDLE_WIDTH,
+        top: leftPaddleTop,
+        bottom: leftPaddleTop + PADDLE_HEIGHT
+    };
+    let rightPaddle = {
+        left: width - PADDLE_WIDTH - PADDLE_OFFSET,
+        right: width - PADDLE_WIDTH,
+        top: rightPaddleTop,
+        bottom: rightPaddleTop + PADDLE_HEIGHT
+    };
     if (ball.left<0 || ball.right>width){
         xSpeed = -xSpeed;
     }
