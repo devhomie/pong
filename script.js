@@ -51,6 +51,16 @@ function update(){
     ballPosition.y += ySpeed;
 }
 
+function checkPaddleCollision(ball,paddle){
+    // Check if th paddle and ball overlap vertically and horizontally
+    return(
+        ball.left < paddle.right &&
+        ball.right > paddle.left &&
+        ball.top < paddle.bottom &&
+        ball.bottom > paddle.top
+    );
+}
+
 function checkCollision(){
     let ball = {
         left: ballPosition.x,
