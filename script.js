@@ -17,6 +17,9 @@ const PADDLE_OFFSET = 10;
 let leftPaddleTop = 10;
 let rightPaddleTop = 30;
 
+let leftScore = 0;
+let rightScore = 0;
+
 document.addEventListener("mousemove",e=>{
     rightPaddleTop = e.y - canvas.offsetTop;
 })
@@ -43,8 +46,16 @@ function draw(){
         rightPaddleTop,
         PADDLE_WIDTH,
         PADDLE_HEIGHT,
-    )
+    );
+    // Draw scores
+    ctx.font = "30px monospace";
+    ctx.textAlign = "left";
+    ctx.fillText(leftScore.toString(), 50,50);
+    ctx.textAlign = "right";
+    ctx.fillText(rightScore.toString(), width - 50, 50);
 }
+
+
 
 function update(){
     ballPosition.x += xSpeed;
