@@ -137,3 +137,25 @@ class Ball extends Entity{
         }
     }
 }
+
+class Scores {
+    constructor(){
+        this.leftScore = 0;
+        this.rightScore = 0;
+    
+    }
+}
+
+class Computer {
+    static followBall(paddle,ball){
+        const MAX_SPEED = 2;
+        let ballBox = ball.boundingBox();
+        let paddleBox = paddle.boundBox();
+        
+        if(ballBox.top < paddleBox.top){
+            paddle.y -= MAX_SPEED;
+        } else if (ballBox.bottom > paddleBox.bottom){
+            paddle.y += MAX_SPEED;
+        }
+    }
+}
