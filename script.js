@@ -182,4 +182,35 @@ class Game {
         );
     this.gameView.drawScores(this.scores);
     }
+    checkCollision(){
+        this.ball.checkPaddleCollision(this.leftPaddle, Math.abs(this.ball.xSpeed));
+        this.ball.checkPaddleCollision(this.rightPaddle, -Math.abs(this.ball.xSpeed));
+        this.ball.checkWallCollision(
+            this.gameView.width,
+            this.gameView.height,
+            this.scores,
+        );
+        if(this.scores.leftScore > 9 || this.scores.rightScore > 9){
+            this.gameOver = true;
+        }
+    }
+
+    update(){
+        this.ball.update();
+        Computer.followBall(this.leftPaddle, this.ball);
+    }
+
+    loop(){
+        this.draw();
+        this.update();
+        this.checkCollision();
+
+        if(this.gameOver){
+            this.draw();
+            this.gameView.drawGameOver();
+        } else{
+            // Call this method again after a timeout
+            setTimeout(()=> this.loop(), 30);
+        }
+    }
 }
