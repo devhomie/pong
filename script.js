@@ -159,3 +159,27 @@ class Computer {
         }
     }
 }
+
+class Game {
+    constructor(){
+        this.gameView = new GameView();
+        this.ball = new Ball();
+        this.leftPaddle = new Paddle(Paddle.OFFSET, 10);
+        this.rightPaddle = new Paddle(this.gameView.width - Paddle.OFFSET - Paddle.WIDTH, 30);
+        this.scores = new Scores();
+        this.gameOver = false;
+
+        document.addEventListener("mousemove", e =>{
+            this.rightPaddle.y = e.y - this.gameView.offsetTop;
+        });
+    }
+
+    draw(){
+        this.gameView.draw(
+            this.ball,
+            this.leftPaddle,
+            this.rightPaddle,
+        );
+    this.gameView.drawScores(this.scores);
+    }
+}
